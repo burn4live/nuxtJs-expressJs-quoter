@@ -1,25 +1,12 @@
 <template>
   <v-layout>
-    <v-flex xs12>
+    <v-flex class="mt-6" xs12>
       <v-card
         raised
         max-width="650"
         min-height="400"
         class="mx-auto"
       >
-        <v-flex xs4>
-          <v-avatar
-            class="profile mt-n6"
-            color="grey"
-            size="130"
-            rounded
-          >
-            <v-img src="" />
-          </v-avatar>
-        </v-flex>
-        <v-flex xs12>
-          <v-divider class="my-2" />
-        </v-flex>
         <v-btn
           :to="'/quote/'+profile._id+'/edit'"
           color="amber accent-4"
@@ -33,6 +20,19 @@
         >
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
+        <v-flex xs4>
+          <v-avatar
+            class="profile mt-n6"
+            color="grey"
+            size="130"
+            rounded
+          >
+            <v-img src="" />
+          </v-avatar>
+        </v-flex>
+        <v-flex xs12>
+          <v-divider class="my-2" />
+        </v-flex>
         <v-layout wrap>
           <v-flex xs12 text-center>
             <v-text-field v-model="profile.name" label="Name" />
@@ -85,7 +85,13 @@ export default {
   },
   methods: {
     update () {
-      this.$axios.post('/api/edit/profile', this.profile)
+      this.$axios.post('/api/edit/profile', this.profile).then((res) => {
+        this.profile.name = res.data.name
+        this.profile.description = res.data.description
+        this.profile.location.address = res.data.location.address
+        this.profile.email = res.data.email
+        this.profile.phone = res.data.phone
+      })
     }
   }
 }
