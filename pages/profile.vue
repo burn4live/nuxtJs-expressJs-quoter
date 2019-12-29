@@ -1,6 +1,6 @@
 <template>
-  <v-layout>
-    <v-flex class="mt-6" xs12>
+  <v-layout wrap>
+    <v-flex xs12>
       <v-card
         raised
         max-width="650"
